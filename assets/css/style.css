@@ -1,0 +1,39 @@
+body {
+    background: url('../images/TriviaBackground.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+#questionHeader, #questionArea {
+    border-bottom: 2px solid whitesmoke;
+    color: whitesmoke;
+    background-color: #267295;
+}
+
+#questionHeader {
+    margin-top: 50px;
+}
+
+#questionArea {
+    text-align: center;
+    width: 70%;
+}
+
+#details {
+    text-align: left;
+    width: 65%;
+}
+
+h2 {
+    padding: 10px;
+}
+
+input {
+    padding: 20px;
+}
+
+button {
+    padding: 25px;
+}
