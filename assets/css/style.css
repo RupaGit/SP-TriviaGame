@@ -19,11 +19,23 @@ body {
 #questionArea {
     text-align: center;
     width: 70%;
+    margin: 20px auto;
+    color: rgb(59, 6, 16);
+    font-weight: bolder;
 }
 
 #details {
     text-align: left;
     width: 65%;
+    margin: 20px auto;
+}
+
+#questionHolder, #optionHolder {
+    margin-bottom: 20px auto;
+}
+
+#displayTime {
+    margin-top: 20px
 }
 
 h2 {
