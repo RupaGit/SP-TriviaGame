@@ -4,12 +4,13 @@
 
 var arrayOfQuestions = [];
 var answered = false;
-var timeForTest = 10;
+var timeForTest = 90;
 var timerRunning = false;
 var questionSelected;
 var questionDisplayed = false;
 var correctAnswers = 0;
 var wrongAnswers = 0;
+var intervalId;
 
 function triviaQuestion(question, answer, option1, option2, option3) {
     this.question = question;
@@ -67,7 +68,7 @@ function displayQuestion(){
     console.log(arrayOfQuestions);
     var optionArray = [];
     console.log(timerRunning);
-    if(!questionDisplayed)
+    if ( (!questionDisplayed) && (arrayOfQuestions.length > 0 ))
     {
         triviaq.html(questionSelected.question);
         $("#questionHolder").append(triviaq); 
@@ -78,13 +79,18 @@ function displayQuestion(){
         for (var i=0; i<optionArray.length; i++) {
             var optionButton = $('<button>');
             optionButton.html(optionArray[i]);
-            optionButton.addClass("btn btn-danger");
+            // optionButton.addClass("btn btn-danger");
             optionButton.addClass("optionButtons");
-            $("#optionHolder").append(optionButton);        
+            $("#optionHolder").append(optionButton);
+            $("#optionHolder").append("<br>");                   
         }
         $("#optionHolder").append("<br> <br> <br>");
         questionDisplayed = true;
         $(".optionButtons").on("click", getValue);
+    }
+    else if (arrayOfQuestions.length === 0 ) {
+        $("#details").append("<h3> You have reached the end of the quiz </h3>");
+        timeUp(intervalId);
     }
 }
 
@@ -98,26 +104,41 @@ function checkAnswer(userChoice) {
    
     console.log(questionSelected.answer);
     if (userChoice === questionSelected.answer) {
-        var winMsg = $("<h3>").html("You answered the question correct")
+        $('#details div').empty();
+        var winImage = $("<img>");
+        winImage.attr("src", "./assets/images/thorYes.gif");
+        var winMsg = $("<h3>").html("You answered the question correct");
         $("#questionHolder").prepend(winMsg);
+        $("#questionHolder").append(winImage);
         correctAnswers++;
         questionDisplayed = false;
+        
         if(timerRunning) {
-            $('#details div').empty();
+            setTimeout(() => {
+                $('#details div').empty();
 
-            // $("details").html("");
-            displayQuestion();
+                // $("details").html("");
+                displayQuestion();
+            }, 1000);
+            
         }
     }
     else {
-        var lossMsg = $("<h3>").html("Sorry wrong answer")
+        $("#details div").empty();
+        var lossMsg = $("<h3>").html("Sorry wrong answer");
+        var lossImage = $("<img>");
+        lossImage.attr("src", "./assets/images/thorWrong.gif");
         $("#questionHolder").prepend(lossMsg);
+        $("#questionHolder").append(lossImage);
         wrongAnswers++;
         questionDisplayed = false;
         if(timerRunning) {
-            $("#details div").empty();
-            // $("details").html("");
-            displayQuestion();
+            setTimeout(() => {
+                $("#details div").empty();
+                // $("details").html("");
+                displayQuestion();
+            }, 1000);
+            
         }
     }
 }
@@ -134,7 +155,7 @@ function shuffleArray(array) {
 
 function startTimer(duration) {
     var timer = duration, minutes, seconds;
-    var intervalId;
+   
     timerRunning = true;
     displayQuestion()
     intervalId = setInterval(function () {
@@ -156,6 +177,9 @@ function timeUp(interval) {
     timerRunning = false;
     $("#displayTime").text("Time up!!!");
     $("#details div").empty();
+    displayWinsLosses()
+}
+function displayWinsLosses(){
     // var timeUpInfo = $("<h3>");
     // timeUpInfo.html("Sorry Time is up... Please play again");
     var noOfWins = $("<h3>");

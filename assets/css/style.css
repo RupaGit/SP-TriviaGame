@@ -10,6 +10,7 @@ body {
     border-bottom: 2px solid whitesmoke;
     color: whitesmoke;
     background-color: #267295;
+    margin: 20 auto;
 }
 
 #questionHeader {
@@ -47,5 +48,12 @@ input {
 }
 
 button {
-    padding: 25px;
+    padding: 15px;
+    font-size: larger;
+    margin: 10px;
+    background: none;
+    border: none;
 }
+button:hover {
+    background-color: lightgoldenrodyellow;
+  }
